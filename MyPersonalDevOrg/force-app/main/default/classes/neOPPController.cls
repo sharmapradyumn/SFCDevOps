@@ -8,9 +8,7 @@ public class neOPPController {
    OpportunityContactRole role;
 
 
-   // The next four methods return one of each of the four member
-   // variables. If this is the first time the method is called,
-   // it creates an empty record for the variable.
+// my comment
    public Account getAccount() {
       if(account == null) account = new Account();
       return account;
