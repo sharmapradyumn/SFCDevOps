@@ -41,7 +41,7 @@ jobs:
 
     # Convert to Deploy Source
     - name: Convert to Deploy Source
-      run: sfdx force:source:convert -r ./force-app -d ./toDeploy
+      run: sfdx force:source:convert -r ./MyPersonalDevOrg/force-app -d ./MyPersonalDevOrg/toDeploy
     
     # Run Validation of Deploy Source
     - name: Run Validation on Deploy Source
