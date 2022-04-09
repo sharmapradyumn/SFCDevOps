@@ -24,7 +24,9 @@ jobs:
 
     # Setup Node
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
     
     # Install SFDX CLI
     - name: Install SFDX CLI
@@ -35,16 +37,19 @@ jobs:
       env:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile ./buildfiles/server.key --username pradyumn@gmail.com --instanceurl $INSTANCE_URL -a prod
+      run: sfdx force:auth:jwt:grant --clientid 3MVG9fe4g9fhX0E5rp6DbIO1.EqMtwpHTwLXLINgAzydDMw_QbzCOixsasjIpF5eyrSalc2OgsgvjQq8tk2DT --jwtkeyfile ./MyPersonalDevOrg/buildfiles/server.key --username pradyumn@gmail.com --instanceurl https://login.salesforce.com -a prod
 
     # Convert to Deploy Source
     - name: Convert to Deploy Source
       run: sfdx force:source:convert -r ./force-app -d ./toDeploy
+      working-directory: ./MyPersonalDevOrg
     
     # Run Validation of Deploy Source
     - name: Run Validation on Deploy Source
       run: sfdx force:mdapi:deploy -l RunLocalTests -c -d ./toDeploy -u prod -w 10
+      working-directory: ./MyPersonalDevOrg
     
     # Deploy
     - name : Deploy to SF Org
       run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u prod -w 10
+      working-directory: ./MyPersonalDevOrg
